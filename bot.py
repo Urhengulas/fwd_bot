@@ -18,32 +18,39 @@ logging.basicConfig(
 
 def start(update, context):
 
-    context.bot.send_message(chat_id=update.message.chat_id, text=START_TEXT)
+    chat_id = update.message.chat_id
+
+    context.bot.send_message(chat_id=chat_id, text=START_TEXT.format(chat_id))
+
 
 dispatcher.add_handler(CommandHandler('start', start))
 
 
 def forward(update, context):
 
-    username = update.message.from_user.first_name
+    username = update.message.from_user.username
+    first_name = update.message.from_user.first_name
+    chat_id = update.message.chat_id
 
     # forward message to the GROUP
     context.bot.send_message(
-        chat_id=GROUP_ID, text=f"{username} wrote:\n{update.message.text}")
+        chat_id=GROUP_ID, text=f"@{username} wrote:\n{update.message.text}")
 
     # send a thank you message to user
     context.bot.send_message(
-        chat_id=update.message.chat_id, text=THANK_TEXT.format(username))
+        chat_id=chat_id, text=THANK_TEXT.format(username))
 
     # log the activity
-    logging.info(f"Forwarded message from {username} to Channel")
+    logging.info(
+        f"Forwarded message from @{username} to Channel")
+
 
 echo_handler = MessageHandler(Filters.text, forward)
 dispatcher.add_handler(echo_handler)
 
 
 def main():
-    
+
     updater.start_polling()
     logging.info("Bot started polling")
     updater.idle()
