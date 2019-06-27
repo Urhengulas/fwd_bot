@@ -1,6 +1,6 @@
-# fwd_bot
+# fwrd_bot
 
-> The fwd_bot (forward_bot) is a simple bot to forward all messages, users send to the bot, to a specific group.
+> The fwrd_bot (forward_bot) is a simple bot to forward all messages, users send to the bot, to a specific group.
 
 - [Getting started](#Getting-started)
   - [Install dependencies:](#Install-dependencies)
