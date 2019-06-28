@@ -3,4 +3,4 @@ run:
 
 dep:
 	if [ ! -d "env" ];then virtualenv env;fi
-	env/bin/pip install -r requirements.txt
+	env/bin/pip install -r my-requirements.txt
