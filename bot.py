@@ -12,18 +12,18 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-TOKEN = os.environ.get('TOKEN', default="")
-GROUP_ID = os.environ.get('GROUP_ID', default=0)
+try:
+    from secret import TOKEN, GROUP_ID
 
-if TOKEN == "" or GROUP_ID == 0:
-    try:
-        from secret import TOKEN as sec_TOKEN, GROUP_ID as sec_GROUP_ID
+    logging.info("Successfully loaded TOKEN and GROUP_ID from secret.py")
+except:
+    TOKEN = str(os.environ.get('TOKEN', default=""))
+    GROUP_ID = int(os.environ.get('GROUP_ID', default=0))
 
-        TOKEN = sec_TOKEN
-        GROUP_ID = sec_GROUP_ID
-
-    except:
-        logging.error("Could not load variables from secret.py")
+    logging.info("Successfully loaded TOKEN and GROUP_ID from environ")
+finally:
+    logging.info(
+        f"TOKEN: {TOKEN} ({type(TOKEN)}, GROUP_ID: {GROUP_ID} ({type(GROUP_ID)})")
 
 
 updater = Updater(token=TOKEN, use_context=True)
