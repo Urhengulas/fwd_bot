@@ -2,18 +2,32 @@ from telegram.ext import (
     Updater, CommandHandler, MessageHandler, Filters
 )
 import logging
+import os
 
-from secret import TOKEN, GROUP_ID
 from texts import START_TEXT, THANK_TEXT
 
-
-updater = Updater(token=TOKEN, use_context=True)
-dispatcher = updater.dispatcher
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+
+TOKEN = os.environ.get('TOKEN', default="")
+GROUP_ID = os.environ.get('GROUP_ID', default=0)
+
+if TOKEN == "" or GROUP_ID == 0:
+    try:
+        from secret import TOKEN as sec_TOKEN, GROUP_ID as sec_GROUP_ID
+
+        TOKEN = sec_TOKEN
+        GROUP_ID = sec_GROUP_ID
+
+    except:
+        logging.error("Could not load variables from secret.py")
+
+
+updater = Updater(token=TOKEN, use_context=True)
+dispatcher = updater.dispatcher
 
 
 def start(update, context):
