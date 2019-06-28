@@ -2,7 +2,7 @@
 
 > The fwrd_bot (forward_bot) is a simple bot to forward all messages, users send to the bot, to a specific group.
 
-- [Getting started](#Getting-started)
+- [Getting started: local](#Getting-started-local)
   - [Install dependencies:](#Install-dependencies)
   - [Create a telegram bot](#Create-a-telegram-bot)
   - [Know your secrets vol. 1](#Know-your-secrets-vol-1)
@@ -10,9 +10,13 @@
   - [Add bot to group](#Add-bot-to-group)
   - [know your secrets vol. 2](#know-your-secrets-vol-2)
   - [Your are done](#Your-are-done)
+- [getting started: heroku](#getting-started-heroku)
+  - [create dyno](#create-dyno)
+  - [set environ variables](#set-environ-variables)
+  - [set worker](#set-worker)
 - [Files](#Files)
 
-## Getting started
+## Getting started: local
 
 ### Install dependencies:
 ```shell
@@ -48,6 +52,31 @@ Add the `GROUP_ID` to your secrets.py
 
 ### Your are done
 Now everyone can just send messages to your bot and these will be forwarded to your channel.
+
+**Well done!**
+
+## getting started: heroku
+
+### create dyno
+To run this bot on heroku, you need to create a dyno ([tutorial](https://devcenter.heroku.com/articles/getting-started-with-python)).  
+I recommend to connect the dyno to GitHub, but there are also other possibilities.
+
+
+### set environ variables
+After connecting the bot it will fail, because you still need to set environment variables for TOKEN and GROUP_ID, for the dyno:
+
+```shell
+$ heroku config:set TOKEN="your TOKEN" GROUP_ID=your_group_id
+```
+
+### set worker
+Now you only need to scale your worker-job up to 1:
+
+```shell
+$ heroku ps:scale worker=1
+```
+
+and now the bot should restart and run.
 
 **Well done!**
 
