@@ -47,12 +47,15 @@ def forward(update, context):
     chat_id = update.message.chat_id
 
     # forward message to the GROUP
-    context.bot.send_message(
-        chat_id=GROUP_ID, text=f"@{username} wrote:\n{update.message.text}")
+    context.bot.forward_message(
+        chat_id=GROUP_ID,
+        from_chat_id=chat_id,
+        message_id=update.message.message_id,
+        text=update.message.text)
 
     # send a thank you message to user
     context.bot.send_message(
-        chat_id=chat_id, text=THANK_TEXT.format(username))
+        chat_id=chat_id, text=THANK_TEXT.format(first_name))
 
     # log the activity
     logging.info(
