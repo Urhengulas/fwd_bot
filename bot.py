@@ -55,7 +55,7 @@ def forward(update, context):
 
     # send a thank you message to user
     context.bot.send_message(
-        chat_id=chat_id, text=THANK_TEXT.format(username))
+        chat_id=chat_id, text=THANK_TEXT.format(first_name))
 
     # log the activity
     logging.info(
