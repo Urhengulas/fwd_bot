@@ -48,7 +48,7 @@ To activate the bot send this message to the group:
 It will send you a hello text and your chat id. This chat id is the `GROUP_ID`.
 
 ### know your secrets vol. 2
-Add the `GROUP_ID` to your secrets.py
+Add the `GROUP_ID` to your secret.py
 
 ### Your are done
 Now everyone can just send messages to your bot and these will be forwarded to your channel.
